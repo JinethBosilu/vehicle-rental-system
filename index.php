@@ -2,13 +2,62 @@
     include 'list_customers.php';
     include 'ban_unban_delete_customers.php';
     include 'includes/db.php';
+    include 'includes/stats.php';
 ?>
 
 
 
 <html>
+  <head>
+    <script>
+function showHistory(customerId) {
+    document.getElementById('historyModal').style.display = 'block';
+    document.getElementById('historyContent').innerHTML = 'Loading...';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'get_rental_history.php?customer_id=' + customerId, true);
+    xhr.onload = function () {
+        if (this.status == 200) {
+            document.getElementById('historyContent').innerHTML = this.responseText;
+        } else {
+            document.getElementById('historyContent').innerHTML = 'Error loading history.';
+        }
+    };
+    xhr.send();
+}
+
+function closeHistory() {
+    document.getElementById('historyModal').style.display = 'none';
+}
+</script>
+
+  <link rel="stylesheet" type="text/css" href="includes/styles.css">
+
+  </head>
   <body>
     <h1>Customer Management</h1>
+    <!-- Stats UI -->
+
+
+<div class="stats-container">
+  <div class="stat-box">
+    <div class="stat-title">Total Customers</div>
+    <div class="stat-value"><?= $totalCustomers ?></div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-title">Active</div>
+    <div class="stat-value"><?= $activeCustomers ?></div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-title">Banned</div>
+    <div class="stat-value"><?= $bannedCustomers ?></div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-title">Revenue</div>
+    <div class="stat-value">Rs. <?= number_format($totalRevenue, 2) ?></div>
+  </div>
+</div>
+
 
     <!-- Dropdown as a form (GET method) -->
     <form method="GET" action="index.php">
@@ -57,6 +106,7 @@
                     <input type="hidden" name="current_filter" value="<?= htmlspecialchars($statusFilter) ?>">
                     <input type="submit" value="Delete Customer">
                 </form>
+                <button onclick="showHistory(<?= $row['customer_id'] ?>)">View History</button>
             </td>
           </tr>
         <?php } ?>
@@ -66,6 +116,14 @@
         <?php } ?>
       </table>
     </div>
+    <!-- History Modal -->
+    <div id="historyModal" style="display:none; position:fixed; top:10%; left:10%; width:80%; background:#fff; padding:20px; border:1px solid #ccc; z-index:999;">
+      <h3>Rental History</h3>
+      <div id="historyContent">Loading...</div>
+      <br>
+      <button onclick="closeHistory()">Close</button>
+    </div>
+
   </body>
   <?php mysqli_close($conn); ?>
 </html>
