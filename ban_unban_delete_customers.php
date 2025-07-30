@@ -1,6 +1,6 @@
 <?php
 include 'includes/db.php';
-$statusFilter = $_GET['status'] ?? 'allStatus';
+//$statusFilter = $_GET['status'] ?? 'allStatus';
 // Handle actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $customer_id = $_POST['customer_id'];
