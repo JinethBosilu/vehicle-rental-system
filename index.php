@@ -1,8 +1,10 @@
 <?php
     include 'list_customers.php';
     include 'ban_unban_delete_customers.php';
-    
+    include 'includes/db.php';
 ?>
+
+
 
 <html>
   <body>
@@ -19,6 +21,7 @@
     </form>
 
     <br><br>
+    
 
     <div>
       <h2>Customer List</h2>
@@ -45,11 +48,13 @@
                 <form method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to <?= $row['status'] === 'banned' ? 'unban' : 'ban' ?> this customer?');">
                     <input type="hidden" name="action" value="<?= $row['status'] === 'banned' ? 'unban' : 'ban' ?>">
                     <input type="hidden" name="customer_id" value="<?= $row['customer_id'] ?>">
+                    <input type="hidden" name="current_filter" value="<?= htmlspecialchars($statusFilter) ?>">
                     <input type="submit" value="<?= $row['status'] === 'banned' ? 'Unban Customer' : 'Ban Customer' ?>">
                 </form>
                 <form method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this customer?');">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="customer_id" value="<?= $row['customer_id'] ?>">
+                    <input type="hidden" name="current_filter" value="<?= htmlspecialchars($statusFilter) ?>">
                     <input type="submit" value="Delete Customer">
                 </form>
             </td>
