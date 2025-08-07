@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 type = ?, 
                 status = ?, 
                 price_per_day = ? 
-              WHERE vehicle_id = ?";
+              WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ssssdi", $brand, $model, $type, $status, $price_per_day, $vehicle_id);
     $stmt->execute();
