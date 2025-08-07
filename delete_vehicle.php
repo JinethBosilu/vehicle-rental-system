@@ -10,7 +10,7 @@ $vehicle_id = $_GET['id'];
 
 // Optional: you can first fetch and delete the vehicle's image file here if stored
 
-$query = "DELETE FROM vehicles WHERE vehicle_id = ?";
+$query = "DELETE FROM vehicles WHERE id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $vehicle_id);
 $stmt->execute();

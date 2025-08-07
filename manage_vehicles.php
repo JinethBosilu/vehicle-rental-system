@@ -66,7 +66,7 @@ include 'includes/db.php'; // DB connection
         $result = mysqli_query($conn, "SELECT * FROM vehicles");
         while($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td>{$row['vehicle_id']}</td>";
+            echo "<td>{$row['id']}</td>";
             echo "<td>{$row['brand']} {$row['model']}</td>";
             echo "<td>{$row['type']}</td>";
 
@@ -90,8 +90,8 @@ include 'includes/db.php'; // DB connection
 
             // Action buttons
             echo "<td>
-                    <a href='edit_vehicle.php?id={$row['vehicle_id']}' class='btn btn-sm btn-outline-primary'>Edit</a>
-                    <a href='delete_vehicle.php?id={$row['vehicle_id']}' class='btn btn-sm btn-outline-danger' onclick=\"return confirm('Are you sure?')\">Delete</a>
+                    <a href='edit_vehicle.php?id={$row['id']}' class='btn btn-sm btn-outline-primary'>Edit</a>
+                    <a href='delete_vehicle.php?id={$row['id']}' class='btn btn-sm btn-outline-danger' onclick=\"return confirm('Are you sure?')\">Delete</a>
                   </td>";
             echo "</tr>";
         }

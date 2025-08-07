@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Fetch current vehicle details
-$query = "SELECT * FROM vehicles WHERE vehicle_id = ?";
+$query = "SELECT * FROM vehicles WHERE id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $vehicle_id);
 $stmt->execute();
