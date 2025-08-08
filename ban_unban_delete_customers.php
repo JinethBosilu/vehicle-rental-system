@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $deleteQuery = "DELETE FROM users WHERE customer_id = $customer_id";
         mysqli_query($conn, $deleteQuery);
     }
-    header("Location: index.php?status=$currentFilter");
+    header("Location: customer_management.php?status=$currentFilter");
     exit;
 }
 ?>
